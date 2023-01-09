@@ -1,4 +1,4 @@
-package com.user.userservice.domain.dto;
+package com.user.userservice.domain.dto.request;
 
 
 import com.user.userservice.domain.entity.UserEntity;
