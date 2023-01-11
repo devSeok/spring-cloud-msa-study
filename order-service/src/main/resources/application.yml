@@ -3,22 +3,16 @@ server:
 
 spring:
   application:
-    name: catalog-service
+    name: order-service
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/catalog?useSSL=false&useUnicode=true&serverTimezone=Asia/Seoul
+    url: jdbc:mysql://127.0.0.1:3306/order?useSSL=false&useUnicode=true&serverTimezone=Asia/Seoul
     username: root
     password: 1234
   jpa:
     show-sql: true
     hibernate:
-      ddl-auto: create-drop
-      format_sql: true
-    generate-ddl: true
-    defer-datasource-initialization: true
-  sql:
-    init:
-      mode: always
+      ddl-auto: update
 eureka:
   instance:
     instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
