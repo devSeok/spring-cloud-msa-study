@@ -26,3 +26,8 @@ logging:
   level:
     com.user.userservice: DEBUG
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

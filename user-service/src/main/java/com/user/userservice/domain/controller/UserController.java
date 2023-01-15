@@ -8,6 +8,7 @@ import com.user.userservice.domain.entity.UserEntity;
 import com.user.userservice.domain.service.UserService;
 import com.user.userservice.domain.dto.response.ResponseUser;
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,11 +21,17 @@ import java.util.List;
 public class UserController {
 
     private final UserService userService;
+    private final Environment env;
 
     @GetMapping("/{userId}")
     public ResponseEntity<ResponseFindOneUser> getUser(@PathVariable("userId") Long userId) {
         return ResponseEntity.status(HttpStatus.OK)
                 .body(userService.getUserByUserId(userId));
+    }
+
+    @GetMapping("/test")
+    public String test() {
+        return env.getProperty("token.secret");
     }
 
     @GetMapping

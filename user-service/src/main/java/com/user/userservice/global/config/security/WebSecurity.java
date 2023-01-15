@@ -17,6 +17,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 import javax.servlet.Filter;
+import java.net.InetAddress;
 
 @Configuration
 @EnableWebSecurity
@@ -33,7 +34,7 @@ public class WebSecurity {
     }
 
     @Bean
-    public AuthenticationManager authenticationManager() throws Exception{
+    public AuthenticationManager authenticationManager() throws Exception {
         return this.authenticationConfiguration.getAuthenticationManager();
     }
 
@@ -46,7 +47,7 @@ public class WebSecurity {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
         http.csrf().disable();
-
+        http.authorizeRequests().antMatchers("/actuator/**").permitAll();
         http.authorizeRequests()
                 .antMatchers("/**")
                 .hasIpAddress("119.194.45.248")
@@ -56,7 +57,7 @@ public class WebSecurity {
         http.headers().frameOptions().disable();
 
 
-         return http.build();
+        return http.build();
     }
 
     private AuthenticationFilter getAuthenticationFilter() throws Exception {
