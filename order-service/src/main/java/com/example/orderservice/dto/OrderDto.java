@@ -1,12 +1,14 @@
 package com.example.orderservice.dto;
 
 import com.example.orderservice.entity.OrderEntity;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.io.Serializable;
 import java.util.UUID;
 
 @Data
+@AllArgsConstructor
 public class OrderDto implements Serializable {
 
     private String productId;
@@ -28,6 +30,13 @@ public class OrderDto implements Serializable {
     }
 
     public static OrderDto from(OrderEntity order) {
-        return 
+        return new OrderDto(
+                order.getProductId(),
+                order.getQty(),
+                order.getUnitPrice(),
+                order.getTotalPrice(),
+                order.getOrderId(),
+                order.getUserId()
+        );
     }
 }

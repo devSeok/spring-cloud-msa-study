@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -13,6 +14,7 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@EntityListeners(AuditingEntityListener.class)
 @Table(name = "orders")
 public class OrderEntity implements Serializable {
 
@@ -34,7 +36,7 @@ public class OrderEntity implements Serializable {
     @Column(nullable = false, unique = true)
     private String orderId;
 
-    @Column(nullable = false, updatable = false, insertable = false)
+    @Column(nullable = false, updatable = false)
     @CreatedDate
     private LocalDateTime createdAt;
 
