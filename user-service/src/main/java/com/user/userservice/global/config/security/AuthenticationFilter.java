@@ -6,9 +6,12 @@ import com.user.userservice.domain.dto.request.RequestLogin;
 import com.user.userservice.domain.dto.response.ResponseUser;
 import com.user.userservice.domain.service.UserService;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -26,6 +29,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -33,6 +37,12 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
     private final ObjectMapper objectMapper = new ObjectMapper();
     private final UserService userService;
+
+
+    private final Long expirationTime = 86400000L;
+    private final String tokenSecret = "dXNlclRva2VuVGVzdHdkd2Vkd2Vkd2Vkd2Vkd3NkYXNkc2Fkd3FlcXdlcXdkcXdkcXdkcXdkcXdkcXdkcXd3ZWZzZGY=";
+
+
 
     public AuthenticationFilter(AuthenticationManager authenticationManager, UserService userService) {
         super.setAuthenticationManager(authenticationManager);
@@ -74,11 +84,17 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
         String username = ((User) authResult.getPrincipal()).getUsername();
 
         ResponseUser userDetailsByEmail = userService.getUserDetailsByEmail(username);
+        String userId = String.valueOf(userDetailsByEmail.getId());
 
+        System.out.println(expirationTime);
+        System.out.println(tokenSecret);
         String token = Jwts.builder()
+                .setSubject(userId)
+                .setExpiration(new Date(System.currentTimeMillis() + expirationTime))
+                .signWith(SignatureAlgorithm.HS256, tokenSecret)
                 .compact();
 
         response.addHeader("token", token);
-       response.addHeader("userId", String.valueOf(userDetailsByEmail.getId()));
+       response.addHeader("userId", userId);
     }
 }
