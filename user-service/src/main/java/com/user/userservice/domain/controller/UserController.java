@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/user-service/users")
+@RequestMapping("/users")
 @RequiredArgsConstructor
 public class UserController {
 
@@ -37,7 +37,7 @@ public class UserController {
     public ResponseEntity<ResponseUser> createUser(@RequestBody RequestUser userRequest) {
         UserEntity user = userService.createUser(userRequest);
 
-        ResponseUser responseUser = new ResponseUser(user.getEmail(), user.getName());
+        ResponseUser responseUser = new ResponseUser(user.getId(), user.getEmail(), user.getName());
 
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(responseUser);
