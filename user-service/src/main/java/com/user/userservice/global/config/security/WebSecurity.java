@@ -50,7 +50,7 @@ public class WebSecurity {
         http.authorizeRequests().antMatchers("/actuator/**").permitAll();
         http.authorizeRequests()
                 .antMatchers("/**")
-                .hasIpAddress("119.194.45.248")
+                .hasIpAddress("220.120.142.243")
                 .and()
                 .addFilter(getAuthenticationFilter());
 

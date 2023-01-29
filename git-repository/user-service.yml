@@ -1,0 +1,13 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/user?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Seoul
+    username: root
+    password: '{cipher}c1c1fd91944b3fb621dd4afcf1b754f9e4bf67e8462e991c2ed548474f77e721'
+token:
+  secret: dXNlclRva2VuVGVzdHdkd2Vkd2Vkd2Vkd2Vkd3NkYXNkc2Fkd3FlcXdlcXdkcXdkcXdkcXdkcXdkcXdkcXd3ZWZzZGY=
+gateway:
+  ip: 192.158.0.8
+
+order_service:
+  url: http://order-service/order-service/%s/orders
