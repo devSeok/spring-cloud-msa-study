@@ -8,7 +8,8 @@ spring:
     config:
       server:
         git:
-          uri: file:\\\D:\git\spring-msa\git-repository
+#          uri: file:\\\D:\git\spring-msa\git-repository
+          uri: https://github.com/devSeok/spring-cloud-config.git
         default-label: master
 
 #          uri: file:///${user.home}/git-repository
